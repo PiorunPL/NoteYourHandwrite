@@ -12,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.notemyhandwrite.app.EventHandler
+import com.example.notemyhandwrite.app.IHandler
 import com.example.notemyhandwrite.databinding.ChooseInputMethodBinding
 
 /**
@@ -22,13 +24,27 @@ class ChooseInputMethod : Fragment() {
     private var _binding: ChooseInputMethodBinding? = null
     private val binding get() = _binding!!
 
-    private val intentCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+    private val eventHandler : IHandler = EventHandler // Jaka jest zaleta używania w tym miejscu interfejsu?
+
     private val intentGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    private val PICK_IMAGE = 2
 
     private var imageBitmap : Bitmap? = null
     private var imageUri : Uri? = null
-    private val REQUEST_IMAGE_CAPTURE = 1
-    private val PICK_IMAGE = 2
+
+
+    fun setImage(image: Bitmap){
+        binding.testowy.setImageBitmap(image)
+    }
+
+    fun setImage(image: Uri){
+        binding.testowy.setImageURI(image)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ScreenManagment.setChooseInputMethodScreen(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,33 +59,15 @@ class ChooseInputMethod : Fragment() {
 
         binding.buttonGallery.setOnClickListener {
             //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            try {
-                    startActivityForResult(intentGallery, PICK_IMAGE)
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this.context, "Something went wrong", Toast.LENGTH_SHORT).show()
-            }
+            eventHandler.pickImageFromGallery(requireActivity())
         }
 
         binding.buttonCamera.setOnClickListener {
-            try {
-                startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE)
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this.context, "Something went wrong", Toast.LENGTH_SHORT).show()
-            }
+            eventHandler.pickImageFromCamera(requireActivity())
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.testowy.setImageBitmap(imageBitmap)
-        }
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            imageUri = data?.data
-            binding.testowy.setImageURI(imageUri)
-        }
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
