@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainMenuFragment">
+    app:startDestination="@id/MainMenuFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/ChooseInputMethod"
         android:name="com.example.notemyhandwrite.uiapp.ChooseInputMethod"
-        android:label="@string/first_fragment_label"
+        android:label="Choose Input Method"
         tools:layout="@layout/choose_input_method">
 
         <action
@@ -23,14 +23,15 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/ChooseInputMethod" />
     </fragment>
     <fragment
-        android:id="@+id/mainMenuFragment"
+        android:id="@+id/MainMenuFragment"
         android:name="com.example.notemyhandwrite.uiapp.MainMenuFragment"
-        android:label="MainMenuFragment" >
+        android:label="MainMenuFragment"
+        tools:layout="@layout/fragment_main_menu">
         <action
-            android:id="@+id/action_mainMenuFragment_to_FirstFragment2"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_MainMenuFragment_to_FirstFragment2"
+            app:destination="@id/ChooseInputMethod" />
     </fragment>
 </navigation>

@@ -26,13 +26,6 @@ class ChooseInputMethod : Fragment() {
 
     private val eventHandler : IHandler = EventHandler // Jaka jest zaleta używania w tym miejscu interfejsu?
 
-    private val intentGallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-    private val PICK_IMAGE = 2
-
-    private var imageBitmap : Bitmap? = null
-    private var imageUri : Uri? = null
-
-
     fun setImage(image: Bitmap){
         binding.testowy.setImageBitmap(image)
     }
@@ -58,7 +51,6 @@ class ChooseInputMethod : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonGallery.setOnClickListener {
-            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             eventHandler.pickImageFromGallery(requireActivity())
         }
 
@@ -66,8 +58,6 @@ class ChooseInputMethod : Fragment() {
             eventHandler.pickImageFromCamera(requireActivity())
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

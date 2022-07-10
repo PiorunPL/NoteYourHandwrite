@@ -29,7 +29,7 @@ class MainMenuFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         binding.newNote.setOnClickListener {
-            findNavController().navigate(R.id.action_mainMenuFragment_to_FirstFragment2)
+            findNavController().navigate(R.id.action_MainMenuFragment_to_FirstFragment2)
         }
     }
 
