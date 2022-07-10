@@ -3,7 +3,7 @@ package com.example.notemyhandwrite.uiapp
 import android.graphics.Bitmap
 import android.net.Uri
 
-object ScreenManagment : IScreenManagment {
+object ScreenManagement : IScreenManagement {
 
     private var chooseInputMethodScreen : ChooseInputMethod? = null
 
